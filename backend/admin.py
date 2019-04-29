@@ -6,9 +6,27 @@ from backend import models
 @admin.register(models.User)
 class UserAdmin(DjangoUserAdmin):
     """
-    Extend the base Django UserAdmin with support for some Buza fields.
+    Extend the base Django UserAdmin with support
     """
 
     date_hierarchy = 'date_joined'
     ordering = ['-date_joined']
     list_display = list(DjangoUserAdmin.list_display) + ['date_joined']
+
+
+@admin.register(models.Subject)
+class SubjectAdmin(admin.ModelAdmin):
+    """
+    Extend the base Django UserAdmin with support
+    """
+
+    ordering = ['-name']
+
+
+@admin.register(models.Lesson)
+class LessonAdmin(admin.ModelAdmin):
+    """
+    Extend the base Django UserAdmin with support
+    """
+
+    ordering = ['-title']

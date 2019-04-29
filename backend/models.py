@@ -6,6 +6,10 @@ from djrichtextfield.models import RichTextField
 
 class Subject(models.Model):
     name = models.CharField(max_length=280, blank=False, null=False)
+
+    def get_lessons(self):
+        return Lesson.objects.filter(subject=self).values_list('id', flat=True)
+
     # TOD0
      # tags =  DJANGO TAGGABLE MANAGER
 
@@ -29,7 +33,7 @@ class User(AbstractUser):
         return self.liked_lessons.values_list('id', flat=True)
     
     def get_subjects_following(self):
-        return self.subjects.all.values_list('id', flat=True)
+        return self.subjects.all().values_list('id', flat=True)
 
 #: Helper type for Django request users: either anonymous or signed-in.
 RequestUser = Union[AnonymousUser, User]
