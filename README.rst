@@ -1,4 +1,4 @@
-# The web application for TeachHub
+The web application for TeachHub
 ====================================
 
 Create a virtualenv and activate it
