@@ -4,7 +4,7 @@ from backend import models
 
 
 @admin.register(models.User)
-class UserAdmin(DjangoUserAdmin):
+class UserAdmin(admin.ModelAdmin):
     """
     Extend the base Django UserAdmin with support
     """
