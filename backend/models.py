@@ -27,14 +27,29 @@ class User(AbstractUser):
         return self.username
 
     def get_authored_lessons(self):
-        return Lesson.objects.filter(user=self).values_list('id', flat=True)
+        lessons = Lesson.objects.filter(author_id=self.pk)
+        values =[]
+        for lesson in lessons:
+            values.append(
+                {
+                    "title": lesson.title,
+                    "content": lesson.content,
+                    "author": lesson.author.username,
+                    "subject": lesson.subject.name
+                }
+            )
+        return values
     
     def get_liked_lessons(self):
-        return self.liked_lessons.values_list('id', flat=True)
+        return self.liked_lessons.values_list(flat=True)
     
     def get_subjects_following(self):
+        values =[]
+        for pk in self.subjects.all():
+            subject = Subject.objects.get(pk=pk.pk)
+            values.append( {"pk":subject.pk, "name": subject.name})
 
-        return self.subjects.values_list('id', flat=True)
+        return values
 
 #: Helper type for Django request users: either anonymous or signed-in.
 RequestUser = Union[AnonymousUser, User]
