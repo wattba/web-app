@@ -33,7 +33,8 @@ class User(AbstractUser):
         return self.liked_lessons.values_list('id', flat=True)
     
     def get_subjects_following(self):
-        return self.subjects.all().values_list('id', flat=True)
+
+        return self.subjects.values_list('id', flat=True)
 
 #: Helper type for Django request users: either anonymous or signed-in.
 RequestUser = Union[AnonymousUser, User]
